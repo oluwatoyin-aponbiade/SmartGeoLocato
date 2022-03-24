@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -12,6 +13,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,12 +32,20 @@ public class MainActivity extends AppCompatActivity {
     public static final int DEFAULT_UPDATE_INTERVAL = 30;
     public static final int FAST_UPDATE_INTERVAL = 5;
     private static final int PERMISSIONS_FINE_LOCATION = 99;
-    TextView tv_lat, tv_lon, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_update, tv_address;
+    TextView tv_lat, tv_lon, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_update, tv_address, tv_countOfCrumbs;
     Switch sw_locationupdates, sw_gps;
+    Button btn_newWayPoint,btn_showWayPointList, btn_showMap;
 
     boolean updateOn = false;
 
-    // Location request is a config file for all setteings related to fusedlocationProviderClient
+
+    // current location
+ Location currentLocation;
+    // list of saved locations
+    List<Location>savedLocations;
+
+
+    // Location request is a config file for all settings related to fusedlocationProviderClient
     LocationRequest locationRequest;
     LocationCallback locationCallBack;
 
@@ -59,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
         tv_address = findViewById(R.id.tv_address);
         sw_gps = findViewById(R.id.sw_gps);
         sw_locationupdates = findViewById(R.id.sw_locationsupdates);
+        btn_showWayPointList= findViewById(R.id.btn_showWayPointList);
+        btn_newWayPoint=findViewById(R.id.btn_newWayPoint);
+        tv_countOfCrumbs = findViewById(R.id.tv_countOfCrumbs);
+        btn_showMap= findViewById(R.id.btn_showMap);
 
         // set all properties of locationRequest
 
@@ -81,7 +95,32 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+        btn_newWayPoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // get the gps location
 
+                //add the new location to the global list
+                ToyinApplication toyinApplication = (ToyinApplication)getApplicationContext();
+                savedLocations = toyinApplication.getMyLocations();
+                savedLocations.add(currentLocation);
+            }
+        });
+        btn_showWayPointList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, showSavedLocationList.class);
+                startActivity(i);
+            }
+        });
+
+       btn_showMap.setOnClickListener(new View.OnClickListener() {
+          @Override
+           public void onClick(View view) {
+              Intent i = new Intent(MainActivity.this, MapsActivity.class);
+              startActivity(i);
+           }
+        });
 
         sw_gps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,6 +209,7 @@ fusedLocationProviderClient.removeLocationUpdates(locationCallBack);
                 public void onSuccess(Location location) {
                     // we got permissions. put the values of location. xx into the UI components.
                     updateUIValues(location);
+                    currentLocation=location;
 
                 }
             });
@@ -213,6 +253,12 @@ fusedLocationProviderClient.removeLocationUpdates(locationCallBack);
         catch (Exception e){
             tv_address.setText("Unable to retrieve your Street Address");
         }
+
+        ToyinApplication toyinApplication = (ToyinApplication)getApplicationContext();
+        savedLocations = toyinApplication.getMyLocations();
+        // show the number of way points / crumbs saved
+        tv_countOfCrumbs.setText(Integer.toString(savedLocations.size()));
+
 
     }
 }
