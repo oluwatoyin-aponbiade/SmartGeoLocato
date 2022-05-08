@@ -133,8 +133,8 @@
 
     <Switch
         android:id="@+id/sw_locationsupdates"
-        android:layout_width="255dp"
-        android:layout_height="48dp"
+        android:layout_width="257dp"
+        android:layout_height="36dp"
         android:layout_marginTop="12dp"
         android:checked="true"
         android:minHeight="48dp"
@@ -146,8 +146,8 @@
 
     <Switch
         android:id="@+id/sw_gps"
-        android:layout_width="253dp"
-        android:layout_height="48dp"
+        android:layout_width="252dp"
+        android:layout_height="43dp"
         android:layout_marginTop="20dp"
         android:text="GPS/SavePower"
         app:layout_constraintEnd_toEndOf="parent"
@@ -178,10 +178,11 @@
         android:layout_width="409dp"
         android:layout_height="1dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="1dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_address" />
 
@@ -232,4 +233,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_showWayPointList" />
 
+    <Button
+        android:id="@+id/btn_signout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Sign Me Out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_showMap" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".ToyinApplication"
@@ -14,7 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartGeoLocator">
         <activity
-            android:name=".SplashActivity"
+            android:name=".Profile"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
@@ -29,7 +36,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBCRpS4B-Cs8xW4Ai34lmf85MNg-MYemyg" />
+            android:value="AIzaSyBCRpS4B-Cs8xW4Ai34Imf85MNg-MYemyg" />
 
         <activity
             android:name=".MapsActivity"
@@ -39,7 +46,7 @@
             android:name=".showSavedLocationList"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

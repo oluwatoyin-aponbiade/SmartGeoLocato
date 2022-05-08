@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSIONS_FINE_LOCATION = 99;
     TextView tv_lat, tv_lon, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_update, tv_address, tv_countOfCrumbs;
     Switch sw_locationupdates, sw_gps;
-    Button btn_newWayPoint,btn_showWayPointList, btn_showMap;
+    Button btn_newWayPoint,btn_showWayPointList, btn_showMap,sign_out;
 
     boolean updateOn = false;
 
@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         btn_newWayPoint=findViewById(R.id.btn_newWayPoint);
         tv_countOfCrumbs = findViewById(R.id.tv_countOfCrumbs);
         btn_showMap= findViewById(R.id.btn_showMap);
+        sign_out= findViewById(R.id.btn_signout);
 
         // set all properties of locationRequest
 
@@ -95,6 +96,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+        sign_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, Profile.class);
+                startActivity(i);
+            }
+        });
         btn_newWayPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
